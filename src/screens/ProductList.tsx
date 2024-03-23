@@ -1,9 +1,10 @@
 import React,{useState,useEffect} from "react"
-import { Text,StyleSheet,View, FlatList, Image,Platform, TouchableOpacity } from "react-native"
+import { Text,StyleSheet,View, FlatList, Image,Platform, TouchableOpacity, SafeAreaView } from "react-native"
 import fonts from "../utils/fonts"
+import { RootStackParamList } from "../navigation/Navigation"
 
 
-const ProductList=()=>{
+const ProductList=({ navigation }: { navigation: RootStackParamList })=>{
 
 const[Products,setProducts]=useState([])
 
@@ -30,12 +31,12 @@ useEffect(()=>{
 const renderItem=({item})=>{
 
     return (
-        <TouchableOpacity onPress={()=>{}} style={styles.productListConatainer}>
+        <TouchableOpacity onPress={()=>{navigation.navigate('ProductDetails',{data:item})}} style={styles.productListConatainer}>
             <View style={styles.leftView}>
             <Text style={styles.text1}>Air Purifier</Text>
 
                 <Text style={styles.text}>{item.name}</Text>
-             <View style={{flexDirection:'row',columnGap:50,padding:10,alignItems:'center'}}>
+             <View style={{flexDirection:'row',columnGap:50,alignItems:'center'}}>
                  <Text style={styles.price}>${item.price}</Text>
                  
                  <Image resizeMode='contain' style={{height:25,width:25, tintColor:'black'}} source={require('../../assets/images/Vector1.png')}/>
@@ -59,18 +60,22 @@ const renderItem=({item})=>{
 
 
 return (
-  <View style={styles.container}>
-<Text style={styles.text} >
-  Product List
+  <SafeAreaView style={styles.container}>
+    <View style={{alignItems:'center'}}>
+    <Text style={styles.text} >
+ Product List
 </Text>
+    </View>
+
 <FlatList
+style={{marginTop:10}}
 data={Products}
 renderItem={renderItem}
 keyExtractor={(item)=>item.id.toString()}
 
 
 />
-</View>
+</SafeAreaView>
 )
 
 
@@ -80,37 +85,40 @@ keyExtractor={(item)=>item.id.toString()}
 const styles=StyleSheet.create({
   container:{
    flex:1,
-   backgroundColor:'white'
+   backgroundColor:'white',
+   paddingTop:10
   }
 
 ,
 productListConatainer:{
-    paddingTop:10,
-  
-rowGap:10
-}
+    flex:1,
+    flexDirection:'row',
+    //backgroundColor:'grey',
+    paddingHorizontal:5,
+    paddingVertical:10,
+    marginTop:5
+  }
 ,
 leftView:{
-    flex:4,
-    margin:50,
-    height:177,
+    flex:1,
+    margin:10,
     padding:20,
-    borderTopLeftRadius:30,
-    borderTopRightRadius:100,
-    borderBottomEndRadius:20,
-    borderTopStartRadius:35,
-    borderBottomStartRadius:30,
+    borderTopLeftRadius:40,
+    borderTopRightRadius:140,
+    borderBottomEndRadius:40,
+    borderBottomStartRadius:40,
     flexDirection:'column',
     backgroundColor:'#9CE5CB',
-    opacity:0.8,    
+    opacity:0.8, 
+    alignItems:'flex-start'   ,
+    rowGap:10
     
 
 },
 rightView:{
-    flex:1,
     position:'absolute',
-    left:'60%',
-    bottom:'40%',
+    left:'70%',
+    bottom:'20%',
     
 },
 tinyLogo: {
@@ -121,7 +129,7 @@ tinyLogo: {
     height: 150,
   },
   text1:{
-    fontSize:14,
+    fontSize:20,
     color:'black',
     fontFamily:fonts.poppinsRegular
   },
@@ -139,7 +147,8 @@ tinyLogo: {
 
   price:{
     fontSize:18,
-    fontFamily:fonts.poppinsRegular,color:'black'
+    fontFamily:fonts.poppinsBold,
+    color:'black'
   }
 
 })

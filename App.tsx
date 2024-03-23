@@ -1,29 +1,14 @@
-import React from "react"
-import { Text,StyleSheet,View, SafeAreaView } from "react-native"
-import ProductList from "./src/screens/ProductList"
+import { View, Text } from 'react-native'
+import React from 'react'
+import Navigation from './src/navigation/Navigation'
 
-
-const App=()=>{
-
-
-return (
-  <SafeAreaView style={styles.container}>
-    <ProductList/>
-
-</SafeAreaView>
-)
-
-
-
+const App = () => {
+  return (
+    
+       <Navigation/>
+    
+   
+  )
 }
 
-const styles=StyleSheet.create({
-  container:{
-    flex:1,
-   
-  }
-})
-
-
 export default App
-
