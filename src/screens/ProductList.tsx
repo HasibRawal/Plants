@@ -1,5 +1,6 @@
 import React,{useState,useEffect} from "react"
-import { Text,StyleSheet,View, FlatList, Image,Platform } from "react-native"
+import { Text,StyleSheet,View, FlatList, Image,Platform, TouchableOpacity } from "react-native"
+import fonts from "../utils/fonts"
 
 
 const ProductList=()=>{
@@ -29,28 +30,28 @@ useEffect(()=>{
 const renderItem=({item})=>{
 
     return (
-        <View style={styles.productListConatainer}>
+        <TouchableOpacity onPress={()=>{}} style={styles.productListConatainer}>
             <View style={styles.leftView}>
-            <Text style={styles.text}>{item.name}</Text>
-            <View style={{flexDirection:'row',justifyContent:'space-between'}}>
-            <Text style={styles.price}>${item.price}</Text>
-            <Text>Heart icon</Text>
-            
+            <Text style={styles.text1}>Air Purifier</Text>
 
+                <Text style={styles.text}>{item.name}</Text>
+             <View style={{flexDirection:'row',columnGap:50,padding:10,alignItems:'center'}}>
+                 <Text style={styles.price}>${item.price}</Text>
+                 
+                 <Image resizeMode='contain' style={{height:25,width:25, tintColor:'black'}} source={require('../../assets/images/Vector1.png')}/>
             </View>
-           
-
             </View>
             <View style={styles.rightView}>
-            <Image
-        style={styles.tinyLogo}
-        source={{
-          uri: item.image,
-        }}
-      />            
+                    <Image
+                    resizeMode='stretch'
+                style={styles.tinyLogo}
+                source={{
+                uri: item.image,
+                }}
+            />            
       </View>
        
-        </View>
+        </TouchableOpacity>
     )
 }
 
@@ -59,7 +60,7 @@ const renderItem=({item})=>{
 
 return (
   <View style={styles.container}>
-<Text >
+<Text style={styles.text} >
   Product List
 </Text>
 <FlatList
@@ -79,40 +80,66 @@ keyExtractor={(item)=>item.id.toString()}
 const styles=StyleSheet.create({
   container:{
    flex:1,
-   margin:10,
-   paddingTop:10
+   backgroundColor:'white'
   }
 
 ,
 productListConatainer:{
-    margin:50,
-    padding:10,
-    borderRadius:20,
-    borderWidth:1,
-    flexDirection:'row'
+    paddingTop:10,
+  
+rowGap:10
 }
 ,
 leftView:{
-    flex:3
+    flex:4,
+    margin:50,
+    height:177,
+    padding:20,
+    borderTopLeftRadius:30,
+    borderTopRightRadius:100,
+    borderBottomEndRadius:20,
+    borderTopStartRadius:35,
+    borderBottomStartRadius:30,
+    flexDirection:'column',
+    backgroundColor:'#9CE5CB',
+    opacity:0.8,    
+    
 
 },
 rightView:{
     flex:1,
+    position:'absolute',
+    left:'60%',
+    bottom:'40%',
+    
 },
 tinyLogo: {
     position:'absolute',
     bottom:30,
     left:5,
-    width: 100,
-    height: 100,
+    width: 120,
+    height: 150,
+  },
+  text1:{
+    fontSize:14,
+    color:'black',
+    fontFamily:fonts.poppinsRegular
   },
   text:{
-    fontSize:20,
-    fontWeight:'bold',color:'black'
+    fontSize:32,
+    color:'black',
+    fontFamily:fonts.philosopherBold
   },
+  header:{
+    textAlign:'center',
+    fontSize:32,
+    color:'black',
+    fontFamily:fonts.philosopherBold
+  },
+
   price:{
-    fontSize:16,
-    fontWeight:'bold',color:'black'
+    fontSize:18,
+    fontFamily:fonts.poppinsRegular,color:'black'
   }
 
 })
